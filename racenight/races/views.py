@@ -13,6 +13,7 @@ from accounts.models import Profile
 from django.views.decorators.cache import cache_control
 from django.db.models import Sum
 from django.contrib.auth import get_user_model
+from decimal import Decimal
 
 User = get_user_model()
 
@@ -30,7 +31,7 @@ def dashboard(request, pk):
     bets_won = Bet.objects.filter(raceentry__race=pk, raceentry__won=True)
     bets_won_amount = Bet.objects.filter(raceentry__race=pk, raceentry__won=True).aggregate(Sum('amount'))['amount__sum']
     if bets_won:
-        win_per_ticket = int(bets_total_amount/bets_won_amount)
+        win_per_ticket = round(Decimal(bets_total_amount/bets_won_amount),1)
     else:
         win_per_ticket = 'No Winning Tickets!'
 
@@ -51,7 +52,7 @@ def dashboard(request, pk):
 
     return render(request, 'races/dashboard.html', context)
 
-
+@login_required
 def createBet(request, pk):
     raceentry = RaceEntry.objects.get(id=pk)
     raceid = raceentry.race.id
@@ -105,7 +106,7 @@ def deleteBet(request, pk):
 #         self.object.save()
 #         return super().form_valid(form)  
 
-
+@login_required
 def Leaderboard(request):
     profiles = Profile.objects.all().order_by('-cash')
 
@@ -113,7 +114,7 @@ def Leaderboard(request):
 
     return render(request, 'races/leaderboard.html', context)
 
-
+@login_required
 def WatchRace(request, pk):
     race = Race.objects.get(pk=pk)
 
@@ -121,6 +122,7 @@ def WatchRace(request, pk):
 
     return render(request, 'races/watchrace.html', context)
 
+@login_required
 def WatchNextRace(request):
     races = ['In Play', 'No More Bets']
     nextrace = Race.objects.filter(status__in = races).first()
