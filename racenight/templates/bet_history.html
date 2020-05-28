@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% for race in races %}
+    <div class="text-center border border-success rounded-lg">
+    <h5>Race:{{ race.number}} {{ race.name }}</h5> 
+    {% if race.status == 'Finished' %}
+    <p class='text-danger'> {{ race.status }}</p>
+    {% elif race.status == 'In Play' %}
+    <p class='text-success'> {{ race.status }}</p>
+    {% elif race.status == 'No More Bets' %}
+    <p class='text-warning'> {{ race.status }}</p>
+    {% else %}
+    <p class='text-primary'> {{ race.status }}</p>
+    {% endif %}
+
+    <table class="table table-condensed table-striped table-sm ">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Horse</th>
+                <th>Stake</th>
+                {% if race.status == 'Finished' %}
+                <th>Pay Out</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+                {% for bet in bets %}
+                    {% if bet.raceentry.race.id == race.id %}
+                    <tr>
+                        <td>{{ bet.raceentry.number }}</td>
+                        <td>{{ bet.raceentry.horse.name }}</td>
+                        <td>{{ bet.amount }}</td>
+                        {% if race.status == 'Finished' %}
+                        <td>{{ bet.winnings}}</td>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <br>
+    {% endfor %}
+   
+
+
+
+{% endblock %}

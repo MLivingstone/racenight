@@ -1,0 +1,36 @@
+<div class="text-center border border-success rounded-lg">
+<h5>Race Results & Betting</h5> 
+<p>Winner:<span class='text-success font-weight-bold'> {{ winner.horse }}</span> </p>
+<p>Pay Out per winning ticket: {{ win_per_ticket }} </p>  
+<p>Total tickets bet: {{ bets_total_amount }}</p>
+<p>Winning tickets: {{ bets_winning }}</p>
+<table class="table table-condensed table-striped table-sm">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Horse</th>
+            <th>Tickets</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in raceentrys %}
+            {% if entry == winner %}
+            <tr class = 'table-success'>
+            {% else %}
+            <tr>
+            {% endif %}
+            <td>{{ entry.number }}</td>
+            <td>{{ entry.horse.name }}</td>
+            {% for key, value in raceentry_bets.items %}
+                {% if key == entry.id %}
+                <td>{{ value }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+ 
+

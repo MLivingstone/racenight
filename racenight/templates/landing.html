@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/static/css/landing.css">
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div id="stage">
+  <div id="stage-caption">
+      <h1 class="display-1">Race Night!</h1>
+      <a href="{% url 'accounts:login' %}" class="btn btn-lg btn-success" >Login</a>
+      <a href="{% url 'accounts:signup' %}" class="btn btn-lg btn-success">Sign up now</a>
+  </div>
+</div>
+
+{% endblock %}
+

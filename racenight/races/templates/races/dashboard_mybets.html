@@ -1,0 +1,46 @@
+<div class="text-center border border-success rounded-lg">
+
+<h5>My Bets</h5> 
+{% if bets %}
+<table class="table table-condensed table-striped table-sm">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Horse</th>
+            <th>Stake</th>
+            {% if race_status == 'Finished' %}
+            <th>Pay Out</th>
+            {% elif race_status == 'In Play' %}
+            <th colspan="1"></th>
+            {% else %}
+            <th colspan="1"></th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for bet in bets %}
+        {% if race_status == 'Finished' %}
+            {% if bet.raceentry == winner %}
+            <tr class = 'table-success'>
+            {% else %}
+            <tr>
+            {% endif %}
+        {% endif %}
+            <td>{{ bet.raceentry.number }}</td>
+            <td>{{ bet.raceentry.horse.name }}</td>
+            <td>{{ bet.amount }}</td>
+            {% if race_status == 'In Play' %}
+            <td><a class='btn btn-danger btn-sm' href="{% url 'races:bet-delete' pk=bet.pk %}">Delete</td>
+            {% elif race_status == 'Finished' %}
+            <td>{{ bet.winnings }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>You have no bets placed on this race.</p>
+{% endif %} 
+</div>

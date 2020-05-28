@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container text-center border border-success rounded-lg">
+    <div class="row">
+        <div class="col text-center">
+            {% if race_status == 'In Play' %}
+                <h5>Race {{ race.number }} - {{ race.name }} </h5>
+                <h5 class='text-center'><span class='font-weight-bold text-success'> {{ race.status }}</span></h5> 
+            {% elif race_status == 'Finished' %}          
+                <h5>Race {{ race.number }} - {{ race.name }} </h5>
+                <h5 class='text-center'><span class='font-weight-bold text-dange'> {{ race.status }}</span></h5> 
+                <a type="button" class="btn btn-sm btn-primary px-2" href="{% url 'races:watchrace' race.id %} ">Rewatch Race</a>
+            {% elif race_status == 'No More Bets' %}
+                <h5>Race {{ race.number }} - {{ race.name }} </h5>
+                <h5 class='text-center'><span class='font-weight-bold text-warning'> {{ race.status }}</span></h5> 
+                 <a type="button" class="btn btn-sm btn-warning px-2" href="{% url 'races:watchrace' race.id %} ">Watch Race</a>
+            {% else %}
+                <h5>Race {{ race.number }} - {{ race.name }} </h5>
+                <h5 class='text-center'><span class='font-weight-bold text-primary'> {{ race.status }}</span></h5> 
+            {% endif %}
+        </div>      
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {% if race_status == 'In Play' %}
+                {% include 'races/dashboard_bet_slip.html' %}
+                <br>
+            {% endif %}
+            {% if race_status == 'No More Bets' %}
+                <br>
+                {% include 'races/dashboard_mybets.html' %}  
+            {% elif race_status == 'Finished' %}
+                <br>
+                {% include 'races/dashboard_mybets.html' %}
+            {% elif race_status == 'In Play' %}
+                {% include 'races/dashboard_mybets.html' %}      
+            {% endif %}
+            <br>
+        </div>
+        <div class="col-md-6 ">
+            {% if race_status == 'Finished' %}
+            {% include 'races/dashboard_race_results.html' %}
+            <br>
+            {% else %}
+            {% include 'races/dashboard_race_card.html' %}
+            {% endif %}
+            <br>
+        </div> 
+    </div>
+    <br>
+</div>
+
+{% endblock %}
+

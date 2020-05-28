@@ -1,0 +1,13 @@
+.table-condensed{
+    font-size: 14px;
+  }
+
+  .race-card{
+    font-size: 11px;
+  } 
+
+  div, iframe {
+    display:block;
+    margin: 0 auto;
+}
+

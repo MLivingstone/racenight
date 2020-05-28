@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Race Night</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/fonts/icofont.min.css" rel="stylesheet">
+  <link href="/static/css/assets/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/css/assets/remixicon/remixicon.css" rel="stylesheet">
+  
+
+  <!-- Template Main CSS File -->
+  <link href="/static/css/style.css" rel="stylesheet">
+  <link href="/static/css/racenight.css" rel="stylesheet">
+  
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-xl-9 d-flex align-items-center justify-content-between">
+          {% if user.is_authenticated %}
+          <h1 class="logo"><a href="{% url 'frontpage' %}">Race Night </a>
+          <a href="{% url 'maindashboard' %}"><span class='text-success'  style='font-size:20px'>{{ user }}
+          <sup class='text-success' style='font-size:10px'>Tickets: {{ user.profile.cash }}</sup></span></a>
+          </h1>
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              {% if user.is_superuser %}
+              <li><a href="{% url 'admin:index' %}">Admin</a></li>
+              {% endif %}
+              <li><a href="{%url 'frontpage' %}">Home</a></li>
+              <li><a class="nav-link" href="{% url 'maindashboard' %}">Dashboard</a></li>
+              <li><a class="nav-link" href="{% url 'bethistory' %}">Bet History</a></li>
+              <li class="drop-down"><a href="">Races</a>
+                <ul>
+                  <li><a href="{% url 'races:dashboard' race_one %}">Race 1</a></li>
+                  <li><a href="{% url 'races:dashboard' race_two %}">Race 2</a></li>
+                  <li><a href="{% url 'races:dashboard' race_three %}">Race 3</a></li>
+                  <li><a href="{% url 'races:dashboard' race_four %}">Race 4</a></li>
+                  <li><a href="{% url 'races:dashboard' race_five %}">Race 5</a></li>
+                </ul>
+              </li>
+              <li><a class="nav-link text-warning" href="{% url 'races:watchnextrace'%}">Watch Next Race</a></li>
+              <li><a href="{% url 'races:leaderboard' %}">Leaderboard</a></li>
+              <li><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </nav><!-- .nav-menu -->
+          {% else %}
+          <h1 class="logo"><a href="{%url 'frontpage' %}">Race Night</a></h1>
+          <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li><a href="{% url 'accounts:login' %}">Login</a></li>
+            <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+          </ul>
+          </nav><!-- .nav-menu -->                    
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="dashboard">
+      <div class="container">
+        {% block content %}
+
+        {% endblock %}
+      </div>
+    </section><!-- End Services Section -->
+
+  </main><!-- End #main -->
+
+   <!-- ======= Footer ======= -->
+   <footer id="footer">
+    <div class="container">
+      <h3>Race Night</h3>
+      <div class="social-links">
+        <a href="https://twitter.com/MartLivingstone" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="https://www.facebook.com/martin.livingstone.5011/" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="https://www.linkedin.com/in/martinlivingstone/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+      <div class="credits">
+        Martin Livingstone</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <!-- <div id="preloader"></div> -->
+  <!-- <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a> -->
+
+  <!--  JS Files -->
+  <script src="/static/js/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/js/assets/js/main.js"></script>
+  <script src="/static/js/myscript.js"> </script>
+
+</body>
+
+</html>

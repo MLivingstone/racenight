@@ -1,0 +1,21 @@
+<div class="text-center border border-success rounded-lg">
+<h5>Betting Slip</h5>
+{% if form %}
+<em>{{ betslip.horse }}</em> 
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+    {% endfor %}
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    <p>Stake: {{ form.amount }}</p>
+    <p>{{ form.raceentry }}</p>
+    <p>{{ form.user }}</p>
+    <input type="submit" class = 'btn btn-success' value="Confirm">
+    <a class = 'btn btn-danger' href="{% url 'races:dashboard' race.id %} ">Cancel</a>
+</form>
+{% else %}
+<p>Select a horse from the race card to place a bet</p>  
+{% endif %}
+</div>
