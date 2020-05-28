@@ -19,7 +19,11 @@
             {% else %}
             <tr>
             {% endif %}
+            {% if entry == winner %}
+            <td><i class='bx bx-trophy' ></i>{{ entry.number }}</td>
+            {% else %}
             <td>{{ entry.number }}</td>
+            {% endif %}
             <td>{{ entry.horse.name }}</td>
             {% for key, value in raceentry_bets.items %}
                 {% if key == entry.id %}

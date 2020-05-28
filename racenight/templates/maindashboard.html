@@ -3,7 +3,7 @@
 
 <div class="container text-center ">
 
-    <h5>{{ user|upper }}'s Dashboard<span class='text-success'>  Tickets: {{ user.profile.cash }}</span></h5>
+    <h5>My Dashboard<span class='text-success'>  Tickets <i class="ri-coupon-line"></i>{{ user.profile.cash }}</span></h5>
     
           <!-- NO MORE BETS -->
           {% for race in races %}
