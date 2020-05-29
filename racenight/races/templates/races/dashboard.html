@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+    {% endfor %}
+{% endif %}
 <div class="container text-center border border-success rounded-lg">
     <div class="row">
         <div class="col text-center">
