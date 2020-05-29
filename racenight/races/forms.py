@@ -33,6 +33,10 @@ class BetCreateForm(ModelForm):
             if raceentry == bet.raceentry:
                 raise forms.ValidationError('You have already bet on this horse',
                                             code='InvalidSelection')
+
+        if raceentry.race.status != 'In Play':
+            raise forms.ValidationError('Sorry - no more bets!',
+                                        code='InvalidSelection')                                            
         return self.cleaned_data
 
 class BetUpdateForm(ModelForm):
