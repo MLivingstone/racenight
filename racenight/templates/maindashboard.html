@@ -22,7 +22,7 @@
                   <tr>
                     <th>No.</th>
                     <th>Horse</th>
-                    <th>Stake</th>
+                    <th>Stake<i class="ri-coupon-line"></i></th>
                   </tr>
               </thead>
               <tbody>
@@ -61,7 +61,7 @@
           <tr>
             <th>No.</th>
             <th>Horse</th>
-            <th>Stake</th>
+            <th>Stake<i class="ri-coupon-line"></i></th>
           </tr>
         </thead>
         <tbody>
@@ -80,6 +80,48 @@
       <br>
      {% endif %}
     {% endfor %} 
+
+      <!-- FINISHED -->
+      {% for race in races %}
+      {% if race.status == 'Finished' %}
+        <div class="col border border-success rounded-lg">
+          <h5>Race {{ race.number }} - {{ race.name }} </h5>
+          <h5 class='text-center'><span class='font-weight-bold text-danger'> {{ race.status }}</span></h5> 
+        <div class="text-center">
+          <a type="button" class="btn btn-sm btn-success px-2" href="{% url 'races:dashboard' race.id %} ">Details</a>
+          <a type="button" class="btn btn-sm btn-primary px-2" href="{% url 'races:watchrace' race.id %} ">Rewatch Race</a>
+        </div>
+        <h6 class="text-center">My Bets</h6>
+        <table class="table table-condensed table-striped table-sm">
+          <thead>
+              <tr>
+                <th>No.</th>
+                <th>Horse</th>
+                <th>Stake</th>
+                <th>Pay Out<i class="ri-coupon-line"></i></th>
+              </tr>
+          </thead> 
+          <tbody>
+              {% for bet in bets %}
+              {% if bet.raceentry in winners %}
+                <tr class = 'table-success'>
+              {% else %}
+                <tr>
+              {% endif %}
+                {% if bet.raceentry.race.id == race.id %}
+                  <td>{{ bet.raceentry.number }}</td>
+                  <td>{{ bet.raceentry.horse.name }}</td>
+                  <td>{{ bet.amount }}</td>
+                  <td>{{ bet.winnings }}</td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+        </div>
+        <br>
+      {% endif %}
+    {% endfor %}   
 
     <!-- UPCOMING -->
     {% for race in races %}
@@ -111,47 +153,7 @@
     {% endif %}
     {% endfor %}
 
-    <!-- FINISHED -->
-    {% for race in races %}
-      {% if race.status == 'Finished' %}
-        <div class="col border border-success rounded-lg">
-          <h5>Race {{ race.number }} - {{ race.name }} </h5>
-          <h5 class='text-center'><span class='font-weight-bold text-danger'> {{ race.status }}</span></h5> 
-        <div class="text-center">
-          <a type="button" class="btn btn-sm btn-success px-2" href="{% url 'races:dashboard' race.id %} ">Details</a>
-          <a type="button" class="btn btn-sm btn-primary px-2" href="{% url 'races:watchrace' race.id %} ">Rewatch Race</a>
-        </div>
-        <h6 class="text-center">My Bets</h6>
-        <table class="table table-condensed table-striped table-sm">
-          <thead>
-              <tr>
-                <th>No.</th>
-                <th>Horse</th>
-                <th>Stake</th>
-                <th>Pay Out</th>
-              </tr>
-          </thead> 
-          <tbody>
-              {% for bet in bets %}
-              {% if bet.raceentry in winners %}
-                <tr class = 'table-success'>
-              {% else %}
-                <tr>
-              {% endif %}
-                {% if bet.raceentry.race.id == race.id %}
-                  <td>{{ bet.raceentry.number }}</td>
-                  <td>{{ bet.raceentry.horse.name }}</td>
-                  <td>{{ bet.amount }}</td>
-                  <td>{{ bet.winnings }}</td>
-                {% endif %}
-              </tr>
-              {% endfor %}
-          </tbody>
-        </table>
-        </div>
-        <br>
-      {% endif %}
-    {% endfor %}    
+   
 
 </div>
 

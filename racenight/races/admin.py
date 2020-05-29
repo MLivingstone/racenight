@@ -17,3 +17,4 @@ class RaceEntryAdmin(admin.ModelAdmin):
 @admin.register(Bet)
 class BetAdmin(admin.ModelAdmin):
     list_display = ('raceentry', 'amount', 'user')
+    list_filter = ('user',)

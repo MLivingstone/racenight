@@ -618,7 +618,7 @@ section {
 }
 
 .about .content ul {
-  list-style-type: circle;
+  list-style: inside circle;
   color: #777777;
   padding: 0;
 }

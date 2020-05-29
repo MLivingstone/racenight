@@ -1,7 +1,7 @@
 <div class="text-center border border-success rounded-lg">
 <h5>Betting Slip</h5>
 {% if form %}
-<em>{{ betslip.horse }}</em> 
+<h5><em>{{ form.raceentry }} {{ betslip.horse }}</em> </h5>
 {% if messages %}
     {% for message in messages %}
         <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
@@ -9,7 +9,7 @@
 {% endif %}
 <form method="POST">
     {% csrf_token %}
-    <p>Stake: {{ form.amount }}</p>
+    <h5>Stake <i class="ri-coupon-line"></i>{{ form.amount }}</h5>
     <p>{{ form.raceentry }}</p>
     <p>{{ form.user }}</p>
     <input type="submit" class = 'btn btn-success' value="Confirm">
