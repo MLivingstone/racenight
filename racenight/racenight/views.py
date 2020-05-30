@@ -7,7 +7,7 @@ from races.models import *
 
 @login_required
 def maindashboard(request):
-    raceentrys = RaceEntry.objects.all()
+    raceentrys = RaceEntry.objects.all().order_by('number')
     bets = Bet.objects.filter(user=request.user)
     races = Race.objects.all()
     winners = RaceEntry.objects.filter(won=True)

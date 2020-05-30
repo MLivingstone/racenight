@@ -19,7 +19,7 @@ User = get_user_model()
 
 @login_required
 def dashboard(request, pk):
-    raceentrys = RaceEntry.objects.filter(race=pk)
+    raceentrys = RaceEntry.objects.filter(race=pk).order_by('number')
  
     bets = Bet.objects.filter(user=request.user, raceentry__race=pk)
     race = Race.objects.get(pk=pk)
@@ -66,7 +66,6 @@ def createBet(request, pk):
     if request.method == 'POST':
         form = BetCreateForm(request.POST)
         if form.is_valid():
-            print('CREATE_BET form is valid')
             form.save(commit=False)
             form.user = user
             form.raceentry = raceentry            
