@@ -35,8 +35,8 @@
           {% if user.is_authenticated %}
           <h1 class="logo"><a href="{% url 'frontpage' %}">Race Night </a>
           <a href="{% url 'maindashboard' %}">
-            <span class='text-white' style='font-size:16px'><i class='bx bxs-user'></i>{{ user }}
-            <span class='text-success' style='font-size:16px'><i class="ri-coupon-line"></i> {{ user.profile.cash }}</span>
+            <span class='text-white' style='font-size:14px'><i class='bx bxs-user'></i>{{ user }}
+            <span class='text-success' style='font-size:14px'><i class="ri-coupon-line"></i> {{ user.profile.cash }}</span>
           </span>
           </a>
           </h1>
